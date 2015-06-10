@@ -1,3 +1,3 @@
 require 'simplecov'
 SimpleCov.start
-require_relative '../lib/internal_files.rb'
+require_relative '../lib/organization.rb'
