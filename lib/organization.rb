@@ -2,4 +2,5 @@ module Organization
 	
 end
 
-require "Organization/department.rb"
+require "organization/managerial_department"
+require "organization/procurement_department"
