@@ -13,5 +13,24 @@ describe Organization::ProcurementDepartment do
   		department1 = FactoryGirl.build(:procurement_department, inventory: 200)
   		expect(department1.inventory).to eq(200)
   	end
+
+    context 'Category' do
+      it "should return inventory of black clothes as 40" do
+        department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "black"})
+        expect(department.inventory_by_category("colour","black")).to eq(40)
+      end
+
+      it "should return inventory of black clothes as 0" do
+        department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "white"})
+        expect(department.inventory_by_category("colour","black")).to eq(0)
+      end
+
+      it "should return inventory of black clothes as 0" do
+        department = FactoryGirl.build(:procurement_department, inventory: 40)
+        expect(department.inventory_by_category("colour","black")).to eq(0)
+      end
+
+    end
   end
+  
 end

@@ -7,5 +7,11 @@ class Organization::ProcurementDepartment
 		@inventory = inventory
 		@categories = categories
 	end
-
+	def inventory_by_category(category, property)
+		if @categories && @categories[category] == property 
+			@inventory
+		else
+			0
+		end			
+	end
 end

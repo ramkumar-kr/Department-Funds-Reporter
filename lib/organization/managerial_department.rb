@@ -23,4 +23,10 @@ class Organization::ManagerialDepartment
 		inventory / @sub_departments.length
 		
 	end
+
+	def inventory_by_category(category, property)
+		@sub_departments.inject(0) do |sum, dept| 
+			sum + dept.inventory_by_category(category, property)
+		end
+	end
 end
