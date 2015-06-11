@@ -30,6 +30,15 @@ describe Organization::ProcurementDepartment do
         expect(department.inventory_by_category("colour","black")).to eq(0)
       end
 
+      it "should return inventory of black clothes which are not t-shirts or jeans as 0" do
+        department = FactoryGirl.build(:procurement_department, inventory: 40)
+        expect(department.inventory_by_categories(["colour", "black",true], ["garment_subtype", "t_shirt", false], ["garment_subtype", "jeans", false])).to eq(0)
+      end
+
+      it "should return inventory of black clothes which are not t-shirts or jeans as 40" do
+        department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "black", "garment_subtype" => "formal_pants"})
+        expect(department.inventory_by_categories(["colour", "black",true], ["garment_subtype", "t_shirt", false], ["garment_subtype", "jeans", false])).to eq(40)
+      end
     end
   end
   
