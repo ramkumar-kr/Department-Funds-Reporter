@@ -3,6 +3,7 @@ FactoryGirl.define do
 		name "Untitled"
 		cash 0
 		inventory 0
-		initialize_with { new(name, cash, inventory) }
+		categories []
+		initialize_with { new(name, cash, inventory, categories) }
 	end
 end
