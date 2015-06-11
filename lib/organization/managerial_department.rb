@@ -24,9 +24,23 @@ class Organization::ManagerialDepartment
 		
 	end
 
-	def inventory_by_category(category, property)
+	def inventory_by_colour(colour)
 		@sub_departments.inject(0) do |sum, dept| 
-			sum + dept.inventory_by_category(category, property)
+			sum + dept.inventory_by_colour(colour)
 		end
 	end
+
+	def inventory_of_black_and_not_jeans_or_t_shirts
+		@sub_departments.inject(0) do |sum, dept| 
+			sum + dept.inventory_of_black_and_not_jeans_or_t_shirts
+		end
+	end
+
+	def inventory_of_men_t_shirts_or_women_scarfs
+		@sub_departments.inject(0) do |sum, dept| 
+			sum + dept.inventory_of_men_t_shirts_or_women_scarfs
+		end
+	end
+
+
 end

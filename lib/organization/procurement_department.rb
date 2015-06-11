@@ -7,28 +7,31 @@ class Organization::ProcurementDepartment
 		@inventory = inventory
 		@categories = categories
 	end
-	def inventory_by_category(category, property)
-		if @categories && @categories[category] == property 
+
+	def inventory_by_colour(colour)
+		if @categories && @categories["colour"] == colour
 			@inventory
 		else
 			0
-		end			
+		end
 	end
 
-	def inventory_excluded_by_category(category, property)
-		if @categories && @categories[category] == property 
-			0
-		else
+	def inventory_of_black_and_not_jeans_or_t_shirts
+		if @categories && @categories["colour"] == "black" && @categories["garment_subtype"] != "jeans" && @categories["garment_subtype"] != "t_shirt"
 			@inventory
-		end			
+		else
+			0
+		end
 	end
 
-	def inventory_by_categories(categories_included1, categories_excluded1, categories_excluded2)
-		
-		if @categories && @categories[categories_included1[0]] == categories_included1[1] && 	@categories[categories_excluded1[0]] != categories_excluded1[1] && @categories[categories_excluded2[0]] != categories_excluded2[1]
+
+def inventory_of_men_t_shirts_or_women_scarfs
+		if @categories && ( (@categories["gender"] == "men" && @categories["garment_subtype"] == "t_shirt") || (@categories["gender"] == "women" && @categories["garment_subtype"] == "scarf") )
 			@inventory
 		else
 			0
-		end			
+		end
 	end
+
+
 end
