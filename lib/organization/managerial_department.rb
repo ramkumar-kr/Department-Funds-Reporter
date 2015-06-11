@@ -11,4 +11,10 @@ class Organization::ManagerialDepartment
 			sum + dept.cash 
 		end
 	end
+
+	def inventory
+		@sub_departments.inject(0) do |sum, dept| 
+			sum + dept.inventory 
+		end
+	end
 end
