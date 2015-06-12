@@ -174,8 +174,14 @@ describe Organization::ManagerialDepartment do
         end
       end
 
-
-
+      context 'Inventory  by colour and minimum funds' do
+        it "should return inventory of departments as 120 for green colour clothes with funding less than 12000" do
+            sub_department1 = FactoryGirl.build(:procurement_department, cash: 11000, inventory: 60, categories: {"colour" => "green"})
+            sub_department2 = FactoryGirl.build(:procurement_department, cash: 10000, inventory: 60, categories: {"colour" => "green"})
+            department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department2])
+            expect(department.inventory_by_colour_and_funding("green",12000)).to eq(120)
+         end 
+      end
     end
   end   
 

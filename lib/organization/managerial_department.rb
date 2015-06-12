@@ -42,5 +42,9 @@ class Organization::ManagerialDepartment
 		end
 	end
 
-
+	def inventory_by_colour_and_funding(colour, minimum_funds)
+		@sub_departments.inject(0) do |sum, dept| 
+			sum + dept.inventory_by_colour_and_funding(colour, minimum_funds)
+		end
+	end
 end
