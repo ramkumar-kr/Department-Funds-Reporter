@@ -1,12 +1,12 @@
 # Provides inventory for a color
 class Organization::InventoryByColour
-	def initialize(colour, department)
+	attr_reader :result
+	def initialize(colour)
 		@colour = colour
-		@department = department
+		@result = 0
 	end
 
-	def generate_report
-		return 0 unless @department.colour_category_exists?(@colour)
-		@department.inventory
+	def build(department)
+		@result = @result + department.inventory if department.colour == @colour
 	end
 end

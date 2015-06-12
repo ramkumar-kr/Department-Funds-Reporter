@@ -8,8 +8,13 @@ class Organization::ProcurementDepartment
 		@categories = categories
 	end
 
-	def colour_category_exists?(colour)
-		@categories && @categories["colour"] == colour
+	def colour
+		return nil unless @categories && @categories["colour"]
+		@categories["colour"]
+	end
+
+	def generate_report(inventory_by_colour)
+		inventory_by_colour.build(self)
 	end
 
 
