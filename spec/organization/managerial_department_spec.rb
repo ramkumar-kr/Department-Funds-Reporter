@@ -181,6 +181,24 @@ describe Organization::ManagerialDepartment do
             department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department2])
             expect(department.inventory_by_colour_and_funding("green",12000)).to eq(120)
          end 
+
+         it "should return inventory of departments as 0 for green colour clothes with funding less than 1200" do
+            sub_department1 = FactoryGirl.build(:procurement_department, cash: 11000, inventory: 60, categories: {"colour" => "green"})
+            sub_department2 = FactoryGirl.build(:procurement_department, cash: 10000, inventory: 60, categories: {"colour" => "green"})
+            department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department2])
+            expect(department.inventory_by_colour_and_funding("green",1200)).to eq(0)
+         end 
+
+         it "should return inventory of departments as 60 for green colour clothes with funding less than 12000" do
+            sub_department1 = FactoryGirl.build(:procurement_department, cash: 14000, inventory: 60, categories: {"colour" => "green"})
+            sub_department2 = FactoryGirl.build(:procurement_department, cash: 10000, inventory: 60, categories: {"colour" => "blue"})
+            sub_department3 = FactoryGirl.build(:procurement_department, cash: 10000, inventory: 60, categories: {"colour" => "green"})
+            sub_department4 = FactoryGirl.build(:procurement_department, cash: 10000, inventory: 60, categories: {"colour" => "red"})
+            sub_department5 = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department2])
+            sub_department6 = FactoryGirl.build(:managerial_department, sub_departments: [sub_department3, sub_department4])
+            department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department5, sub_department6])
+            expect(department.inventory_by_colour_and_funding("green",12000)).to eq(60)
+         end
       end
     end
   end   
