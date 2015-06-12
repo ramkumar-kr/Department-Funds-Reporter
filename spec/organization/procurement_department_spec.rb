@@ -15,7 +15,6 @@ describe Organization::ProcurementDepartment do
   	end
 
     context 'Category' do
-      
 
       it "should return inventory as 0 which does not deal with black clothes" do
         department = FactoryGirl.build(:procurement_department, inventory: 40)
