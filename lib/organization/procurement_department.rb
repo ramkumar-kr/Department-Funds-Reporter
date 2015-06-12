@@ -16,6 +16,14 @@ class Organization::ProcurementDepartment
 		end
 	end
 
+	def inventory_by_colour_and_funding(colour, minimum_funds)
+		if @categories && @categories["colour"] == colour && @cash < minimum_funds
+			@inventory
+		else
+			0
+		end
+	end
+
 	def inventory_of_black_and_not_jeans_or_t_shirts
 		if @categories && @categories["colour"] == "black" && @categories["garment_subtype"] != "jeans" && @categories["garment_subtype"] != "t_shirt"
 			@inventory

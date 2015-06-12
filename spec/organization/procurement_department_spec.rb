@@ -25,12 +25,12 @@ describe Organization::ProcurementDepartment do
         expect(department.inventory_by_colour("black")).to eq(0)
       end
 
-      it "should return inventory of black clothes as 0" do
+      it "should return inventory of black clothes as 0 when it does not deal with colour" do
         department = FactoryGirl.build(:procurement_department, inventory: 40)
         expect(department.inventory_by_colour("black")).to eq(0)
       end
 
-      it "should return inventory as 0" do
+      it "should return inventory as 0 which does not deal with black clothes" do
         department = FactoryGirl.build(:procurement_department, inventory: 40)
         expect(department.inventory_of_black_and_not_jeans_or_t_shirts).to eq(0)
       end
@@ -80,6 +80,25 @@ describe Organization::ProcurementDepartment do
           department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"garment_subtype" => "shirt", "gender" => "women"})
           expect(department.inventory_of_men_t_shirts_or_women_scarfs).to eq(0)
         end
+      end
+
+
+      context 'Departments with given colour and funding' do
+        it "should return inventory of black clothes having funding less than 100 as 20" do
+          department = FactoryGirl.build(:procurement_department, cash: 70, inventory: 20, categories: {"colour" => "black"})
+          expect(department.inventory_by_colour_and_funding("black",100)).to eq(20)
+        end
+
+         it "should return inventory of black clothes having funding greater than 100 as 0" do
+          department = FactoryGirl.build(:procurement_department, cash: 170, inventory: 20, categories: {"colour" => "black"})
+          expect(department.inventory_by_colour_and_funding("black",100)).to eq(0)
+        end
+
+        it "should return inventory of black clothes having funding equal to 100 as 0" do
+          department = FactoryGirl.build(:procurement_department, cash: 100, inventory: 20, categories: {"colour" => "black"})
+          expect(department.inventory_by_colour_and_funding("black",100)).to eq(0)
+        end
+
       end
     end
   end
