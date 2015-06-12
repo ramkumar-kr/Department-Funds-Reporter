@@ -1,6 +1,6 @@
 #Represents an operational division in an organization 
 class Organization::ProcurementDepartment
-	attr_reader :cash, :inventory
+	attr_reader :cash, :inventory, :categories
 	def initialize(name, cash, inventory, categories)
 		@name = name
 		@cash = cash
@@ -8,13 +8,6 @@ class Organization::ProcurementDepartment
 		@categories = categories
 	end
 
-	def inventory_by_colour(colour)
-		if @categories && @categories["colour"] == colour
-			@inventory
-		else
-			0
-		end
-	end
 
 	def inventory_by_colour_and_funding(colour, minimum_funds)
 		if @categories && @categories["colour"] == colour && @cash < minimum_funds

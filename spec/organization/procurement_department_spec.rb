@@ -15,20 +15,7 @@ describe Organization::ProcurementDepartment do
   	end
 
     context 'Category' do
-      it "should return inventory of black clothes as 40" do
-        department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "black"})
-        expect(department.inventory_by_colour("black")).to eq(40)
-      end
-
-      it "should return inventory of black clothes as 0" do
-        department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "white"})
-        expect(department.inventory_by_colour("black")).to eq(0)
-      end
-
-      it "should return inventory of black clothes as 0 when it does not deal with colour" do
-        department = FactoryGirl.build(:procurement_department, inventory: 40)
-        expect(department.inventory_by_colour("black")).to eq(0)
-      end
+      
 
       it "should return inventory as 0 which does not deal with black clothes" do
         department = FactoryGirl.build(:procurement_department, inventory: 40)
