@@ -6,7 +6,7 @@ class Organization::InventoryByColour
 	end
 
 	def generate_report
-		return 0 unless @department.categories && @department.categories["colour"] == @colour
+		return 0 unless @department.colour_category_exists?(@colour)
 		@department.inventory
 	end
 end
