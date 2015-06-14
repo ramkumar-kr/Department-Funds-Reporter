@@ -8,14 +8,14 @@ class Organization::ManagerialDepartment
 	end
 
 	def cash
-		@sub_departments.inject(0) do |sum, dept| 
-			sum + dept.cash 
+		@sub_departments.inject(0) do |sum, dept|
+			sum + dept.cash
 		end
 	end
 
 	def inventory
-		@sub_departments.inject(0) do |sum, dept| 
-			sum + dept.inventory 
+		@sub_departments.inject(0) do |sum, dept|
+			sum + dept.inventory
 		end
 	end
 
@@ -23,26 +23,26 @@ class Organization::ManagerialDepartment
 		inventory / @sub_departments.length
 	end
 
-	def generate_report(inventory_by_colour)
+	def accept(visitor)
 		@sub_departments.each do |department|
-			department.generate_report(inventory_by_colour)
+			department.accept(visitor)
 		end
 	end
 
 	def inventory_of_black_and_not_jeans_or_t_shirts
-		@sub_departments.inject(0) do |sum, dept| 
+		@sub_departments.inject(0) do |sum, dept|
 			sum + dept.inventory_of_black_and_not_jeans_or_t_shirts
 		end
 	end
 
 	def inventory_of_men_t_shirts_or_women_scarfs
-		@sub_departments.inject(0) do |sum, dept| 
+		@sub_departments.inject(0) do |sum, dept|
 			sum + dept.inventory_of_men_t_shirts_or_women_scarfs
 		end
 	end
 
 	def inventory_by_colour_and_funding(colour, minimum_funds)
-		@sub_departments.inject(0) do |sum, dept| 
+		@sub_departments.inject(0) do |sum, dept|
 			sum + dept.inventory_by_colour_and_funding(colour, minimum_funds)
 		end
 	end

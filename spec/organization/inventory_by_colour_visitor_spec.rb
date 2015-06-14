@@ -1,25 +1,25 @@
 require "spec_helper"
 
-describe Organization::InventoryByColour do
+describe Organization::InventoryByColourVisitor do
   context 'Generate Report for procurement department' do
     it "should return inventory of black clothes as 40" do
       department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "black"})
       inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour: "black")
-      department.generate_report(inventory_by_colour)
+      department.accept(inventory_by_colour)
       expect(inventory_by_colour.result).to eq(40)
     end
 
     it "should return inventory of black clothes as 0" do
       department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "white"})
       inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour: "black")
-      department.generate_report(inventory_by_colour)
+      department.accept(inventory_by_colour)
       expect(inventory_by_colour.result).to eq(0)
     end
 
     it "should return inventory of black clothes as 0 when it does not deal with colour" do
       department = FactoryGirl.build(:procurement_department)
       inventory_by_colour = FactoryGirl.build(:inventory_by_colour)
-      department.generate_report(inventory_by_colour)
+      department.accept(inventory_by_colour)
       expect(inventory_by_colour.result).to eq(0)
     end
   end
@@ -30,7 +30,7 @@ describe Organization::InventoryByColour do
       sub_department2 = FactoryGirl.build(:procurement_department, inventory: 60, categories: {"colour" => "black"})
       department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department2])
       inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour:"black")
-      department.generate_report(inventory_by_colour)
+      department.accept(inventory_by_colour)
       expect(inventory_by_colour.result).to eq(100)
     end
 
@@ -41,7 +41,7 @@ describe Organization::InventoryByColour do
       sub_department4 = FactoryGirl.build(:managerial_department, sub_departments: [sub_department2, sub_department3], categories: {"colour" => "black"})
       department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department4])
       inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour:"black")
-      department.generate_report(inventory_by_colour)
+      department.accept(inventory_by_colour)
       expect(inventory_by_colour.result).to eq(200)
     end
 
@@ -52,7 +52,7 @@ describe Organization::InventoryByColour do
       sub_department4 = FactoryGirl.build(:managerial_department, sub_departments: [sub_department2, sub_department3], categories: {"colour" => "black"})
       department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department4])
       inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour:"black")
-      department.generate_report(inventory_by_colour)
+      department.accept(inventory_by_colour)
       expect(inventory_by_colour.result).to eq(100)
     end
   end
@@ -62,21 +62,21 @@ describe Organization::InventoryByColour do
     it "should return inventory of black clothes as 40" do
       department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "black"})
       average_inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour: "black")
-      department.generate_report(average_inventory_by_colour)
+      department.accept(average_inventory_by_colour)
       expect(average_inventory_by_colour.average).to eq(40)
     end
 
     it "should return inventory of black clothes as 0" do
       department = FactoryGirl.build(:procurement_department, inventory: 40, categories: {"colour" => "white"})
       average_inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour: "black")
-      department.generate_report(average_inventory_by_colour)
+      department.accept(average_inventory_by_colour)
       expect(average_inventory_by_colour.average).to eq(0)
     end
 
     it "should return inventory of black clothes as 0 when it does not deal with colour" do
       department = FactoryGirl.build(:procurement_department)
       average_inventory_by_colour = FactoryGirl.build(:inventory_by_colour)
-      department.generate_report(average_inventory_by_colour)
+      department.accept(average_inventory_by_colour)
       expect(average_inventory_by_colour.average).to eq(0)
     end
   end
@@ -87,7 +87,7 @@ describe Organization::InventoryByColour do
       sub_department2 = FactoryGirl.build(:procurement_department, inventory: 60, categories: {"colour" => "black"})
       department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department2])
       average_inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour:"black")
-      department.generate_report(average_inventory_by_colour)
+      department.accept(average_inventory_by_colour)
       expect(average_inventory_by_colour.average).to eq(50)
     end
 
@@ -98,7 +98,7 @@ describe Organization::InventoryByColour do
       sub_department4 = FactoryGirl.build(:managerial_department, sub_departments: [sub_department2, sub_department3], categories: {"colour" => "black"})
       department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department4])
       average_inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour:"black")
-      department.generate_report(average_inventory_by_colour)
+      department.accept(average_inventory_by_colour)
       expect(average_inventory_by_colour.average).to eq(66)
     end
 
@@ -109,7 +109,7 @@ describe Organization::InventoryByColour do
       sub_department4 = FactoryGirl.build(:managerial_department, sub_departments: [sub_department2, sub_department3], categories: {"colour" => "black"})
       department = FactoryGirl.build(:managerial_department, sub_departments: [sub_department1, sub_department4])
       average_inventory_by_colour = FactoryGirl.build(:inventory_by_colour, colour:"black")
-      department.generate_report(average_inventory_by_colour)
+      department.accept(average_inventory_by_colour)
       expect(average_inventory_by_colour.average).to eq(50)
     end
   end

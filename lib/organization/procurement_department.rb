@@ -13,8 +13,8 @@ class Organization::ProcurementDepartment
 		@categories["colour"]
 	end
 
-	def generate_report(inventory_by_colour)
-		inventory_by_colour.build(self)
+	def accept(visitor)
+		visitor.visit(self)
 	end
 
 

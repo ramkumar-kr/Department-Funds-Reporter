@@ -1,14 +1,14 @@
 # Provides inventory for a color
-class Organization::InventoryByColour
+class Organization::InventoryByColourVisitor
 	def initialize(colour)
 		@colour = colour
 		@total = 0
 		@count = 0
 	end
 
-	def build(department)
-		if department.colour == @colour
-			@total = @total + department.inventory
+	def visit(visitor)
+		if visitor.colour == @colour
+			@total = @total + visitor.inventory
 			@count = @count + 1
 		end
 	end
