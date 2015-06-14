@@ -1,12 +1,24 @@
 # Provides inventory for a color
 class Organization::InventoryByColour
-	attr_reader :result
 	def initialize(colour)
 		@colour = colour
-		@result = 0
+		@total = 0
+		@count = 0
 	end
 
 	def build(department)
-		@result = @result + department.inventory if department.colour == @colour
+		if department.colour == @colour
+			@total = @total + department.inventory
+			@count = @count + 1
+		end
+	end
+
+	def average
+		return 0 if @count == 0
+		@total / @count
+	end
+
+	def result
+		@total
 	end
 end
